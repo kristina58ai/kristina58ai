@@ -23,14 +23,4 @@ My principle is **"I build tools I use"**: I only publish projects I actually us
 
 Three public projects:
 
-- **DEV-HUB V.6** — multi-agent orchestration (the origin; it built the others)
-- **Content-hub** — AI tool for social media (Cowork version + LangGraph website)
-- **Learning-hub** — graph-RAG learning system
-
-The full map, connections and readiness status — in a separate file: **[PROJECTMAP.en.md](PROJECTMAP.en.md)**.
-
-## 📫 Contacts
-
-- GitHub: [@kristina58ai](https://github.com/kristina58ai)
-- Email: Tikhonmineev@gmail.com
-- Telegram: [@Tikhonmineev](https://t.me/Tikhonmineev)
+- **DEV-HUB V.6** — multi-agent orchestration (
