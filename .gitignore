@@ -1,0 +1,38 @@
+# === Приватное (никогда не публикуется) ===
+HOOKS.md
+HOOKS.en.md
+**/HOOKS.md
+.secrets/
+*.secret
+
+# === Секреты и окружение ===
+.env
+.env.local
+*.key
+*.pem
+
+# === Runtime-данные проектов (в портфолио не входят) ===
+data/
+*.log
+logs/
+
+# === Python (для scripts/) ===
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# === Артефакты сборки резюме ===
+# resume.pdf коммитим (нужен рекрутёру), промежуточное — нет
+resume.aux
+resume.tmp
+
+# === Локальный preview (не часть хаб-репо) ===
+_preview_example_project_repo/
+
+# === OS / IDE ===
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,64 @@
+# ═══════════════════════════════════════════════════════════════
+# docs-check.yml — REUSABLE workflow (ADR-005)
+# ───────────────────────────────────────────────────────────────
+# Пишется ОДИН РАЗ здесь, в хаб-репо (публичный профиль). Каждый
+# проектный репо вызывает его тонким caller-ом:
+#
+#   jobs:
+#     docs:
+#       uses: kristina58ai/kristina58ai/.github/workflows/docs-check.yml@main
+#
+# Проверки: билингва-паритет · внутренние ссылки · markdown-lint · guard приватного.
+# Actions на публичных репо — бесплатны и безлимитны.
+# ═══════════════════════════════════════════════════════════════
+name: docs-check
+
+on:
+  workflow_call: {}      # делает workflow вызываемым из других репо
+  push:                  # + прогон на самом хабе
+    branches: [main]
+  pull_request:
+
+jobs:
+  docs-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Скрипты живут в хаб-репо. В проектных репо их нет локально —
+      # подтягиваем из хаба, чтобы логика проверок была единой (DRY).
+      - name: Fetch shared CI scripts from hub
+        run: |
+          if [ -d scripts/ci ]; then
+            echo "Скрипты уже локальны (это хаб-репо)"
+          else
+            echo "Тяну скрипты проверок из хаб-репо"
+            curl -sSL -o check_bilingual.py     https://raw.githubusercontent.com/kristina58ai/kristina58ai/main/scripts/ci/check_bilingual.py
+            curl -sSL -o check_links.py         https://raw.githubusercontent.com/kristina58ai/kristina58ai/main/scripts/ci/check_links.py
+            curl -sSL -o check_private_guard.py https://raw.githubusercontent.com/kristina58ai/kristina58ai/main/scripts/ci/check_private_guard.py
+            mkdir -p scripts/ci
+            mv check_*.py scripts/ci/
+          fi
+
+      - name: Bilingual parity
+        run: python scripts/ci/check_bilingual.py .
+
+      - name: Internal links
+        run: python scripts/ci/check_links.py .
+
+      - name: Private-contour guard
+        run: python scripts/ci/check_private_guard.py .
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Markdown lint
+        run: npx --yes markdownlint-cli2 "**/*.md" "#node_modules"

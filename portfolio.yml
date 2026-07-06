@@ -1,0 +1,56 @@
+# ═══════════════════════════════════════════════════════════════
+# portfolio.yml — ЕДИНЫЙ ИСТОЧНИК ПРАВДЫ о портфолио
+# ───────────────────────────────────────────────────────────────
+# Добавить/обновить проект = правка ЗДЕСЬ. Робот scripts/gen_portfolio.py
+# пересобирает секции Profile README (созвездие + индекс готовности).
+#
+# ПРАВИЛО: только ПУБЛИЧНЫЕ проекты. Приватные проекты сюда
+# НЕ добавляются — ноль метаданных в публичном контуре (ADR-008).
+# ═══════════════════════════════════════════════════════════════
+
+narrative: "I build tools I use — и детально объясняю что, зачем и какая от этого польза"
+
+owner:
+  github: kristina58ai
+  target_role: "Junior+ Applied LLM Engineer / AI Agent Developer"
+
+projects:
+
+  dev-hub:
+    title: "DEV-HUB V.6"
+    visibility: public
+    status: done          # planned | in_progress | done
+    coverage: "multi-agent оркестрация"
+    tagline: "Исток системы: лучшая практическая реализация связи агентов и сетей"
+    repo: "https://github.com/kristina58ai/dev-hub"
+    demo: null
+    links: [content-hub, learning-hub]
+
+  content-hub:
+    title: "Content-hub"
+    visibility: public
+    status: done
+    coverage: "multi-agent + RAG · LangGraph (Showcase)"
+    tagline: "AI-инструмент авто-ведения соцсетей — в двух версиях"
+    versions:
+      - id: personal
+        title: "Personal (Cowork)"
+        repo: "https://github.com/kristina58ai/content-hub-personal"
+        stack: "Cowork role-switching + RAG-личность + SQLite + Playwright"
+        status: done
+      - id: showcase
+        title: "Showcase (сайт)"
+        repo: "https://github.com/kristina58ai/content-hub-showcase"
+        stack: "LangGraph"
+        status: done
+    links: [dev-hub, learning-hub]
+
+  learning-hub:
+    title: "Learning-hub"
+    visibility: public
+    status: done
+    coverage: "graph-RAG"
+    tagline: "Мульти-агентная система обучения: граф знаний + интервальные повторения"
+    repo: "https://github.com/kristina58ai/learning-hub"
+    demo: null
+    links: [dev-hub, content-hub]
